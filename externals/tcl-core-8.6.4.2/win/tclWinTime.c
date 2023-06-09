@@ -542,7 +542,7 @@ TclpGetDate(
 	    return TclpLocaltime(t);
 	}
 
-	time = *t - timezone;
+	time = *t - _timezone;
 
 	/*
 	 * If we aren't near to overflowing the long, just add the bias and
@@ -562,7 +562,7 @@ TclpGetDate(
 	     * Propagate seconds overflow into minutes, hours and days.
 	     */
 
-	    time = tmPtr->tm_sec - timezone;
+	    time = tmPtr->tm_sec - _timezone;
 	    tmPtr->tm_sec = (int)(time % 60);
 	    if (tmPtr->tm_sec < 0) {
 		tmPtr->tm_sec += 60;
