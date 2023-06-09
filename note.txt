@@ -1,0 +1,6 @@
+Install Sphinx 1.8.5:
+pip install MarkupSafe==1.1.1
+pip install Jinja2==2.10.1
+pip install Sphinx==1.8.5
+Should install mingw:gendef also
+Then run buildrelease.bat -o out -x86 --skip-nuget --skip-zip
