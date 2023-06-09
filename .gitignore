@@ -23,6 +23,10 @@ mono_crash.*
 [Rr]eleases/
 x64/
 x86/
+externals/tcltk/
+externals/tcl-core-8.6.4.2/win/Release_VC*/
+externals/tix-8.4.3.6/win/Release_VC*/
+externals/tk-8.6.4.2/win/Release_VC*/
 [Ww][Ii][Nn]32/
 [Aa][Rr][Mm]/
 [Aa][Rr][Mm]64/
