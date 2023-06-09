@@ -2,11 +2,6 @@
 
 #include "python_ver_rc.h"
 
-// Include the manifest file that indicates we support all
-// current versions of Windows.
-#include <winuser.h>
-1 RT_MANIFEST "python.manifest"
-
 1 ICON DISCARDABLE "launcher.ico" 
 2 ICON DISCARDABLE "py.ico" 
 3 ICON DISCARDABLE "pyc.ico" 
