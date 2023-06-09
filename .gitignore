@@ -24,9 +24,10 @@ mono_crash.*
 x64/
 x86/
 externals/tcltk/
-externals/tcl-core-8.6.4.2/win/Release_VC*/
-externals/tix-8.4.3.6/win/Release_VC*/
-externals/tk-8.6.4.2/win/Release_VC*/
+externals/tcl-core-8.6.4.2/win/*_VC*/
+externals/tix-8.4.3.6/win/*_VC*/
+externals/tk-8.6.4.2/win/*_VC*/
+externals/openssl-1.0.2k/tmp/
 [Ww][Ii][Nn]32/
 [Aa][Rr][Mm]/
 [Aa][Rr][Mm]64/
