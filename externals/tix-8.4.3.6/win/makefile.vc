@@ -130,7 +130,7 @@ RM		= del
 # Compile flags
 #
 
-cflags = -c -W3 -nologo
+cflags = -c -W3 -nologo -D _USING_V110_SDK71_
 
 !IF "$(UCRT)" == "1"
 cflags	= $(cflags) -MT
@@ -154,7 +154,7 @@ lcommon 	= /RELEASE /NOLOGO
 
 # declarations for use on Intel i386, i486, and Pentium systems
 !IF "$(MACHINE)" == "IX86"
-lflags	 	= $(lcommon) /MACHINE:$(MACHINE)
+lflags	 	= $(lcommon) /MACHINE:$(MACHINE) /subsystem:console,"5.01"
 !ELSE
 lflags	 	= $(lcommon) /MACHINE:$(MACHINE)
 !ENDIF
