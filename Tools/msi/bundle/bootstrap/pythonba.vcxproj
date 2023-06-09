@@ -21,10 +21,11 @@
   <PropertyGroup Label="Globals">
     <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
     <Platform Condition="'$(Platform)' == ''">Win32</Platform>
-    <PlatformToolset Condition="'$(PlatformToolset)' == '' and '$(VCTargetsPath14)' != ''">v140</PlatformToolset>
+    <PlatformToolset Condition="'$(PlatformToolset)' == '' and '$(VCTargetsPath14)' != ''">v141_xp</PlatformToolset>
     <PlatformToolset Condition="'$(PlatformToolset)' == '' and '$(VCTargetsPath12)' != ''">v120</PlatformToolset>
     <ProjectGuid>{7A09B132-B3EE-499B-A700-A4B2157FEA3D}</ProjectGuid>
     <TargetName>PythonBA</TargetName>
+    <WindowsTargetPlatformVersion>7.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <Import Project="..\..\wix.props" />
@@ -49,6 +50,8 @@
       <AdditionalLibraryDirectories Condition="'$(PlatformToolset)' == 'v120'">$(WixInstallPath)sdk\vs2013\lib\x86</AdditionalLibraryDirectories>
       <ModuleDefinitionFile>pythonba.def</ModuleDefinitionFile>
       <GenerateDebugInformation Condition="'$(Configuration)'=='Debug'">true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(WixInstallPath)sdk\vs2015\lib\x86</AdditionalLibraryDirectories>
+      <SubSystem Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -61,6 +64,7 @@
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="VersionHelpers.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="pythonba.def" />

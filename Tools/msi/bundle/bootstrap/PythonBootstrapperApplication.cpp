@@ -3034,10 +3034,10 @@ private:
 
     void ValidateOperatingSystem() {
         LOC_STRING *pLocString = nullptr;
-        
+
         if (IsWindowsServer()) {
             if (IsWindowsVersionOrGreater(6, 1, 1)) {
-                BalLog(BOOTSTRAPPER_LOG_LEVEL_STANDARD, "Target OS is Windows Server 2008 R2 or later");
+                BalLog(BOOTSTRAPPER_LOG_LEVEL_STANDARD, "Target OS is Windows Server 2008 R2 SP1 or later");
                 return;
             } else if (IsWindowsVersionOrGreater(6, 1, 0)) {
                 BalLog(BOOTSTRAPPER_LOG_LEVEL_ERROR, "Detected Windows Server 2008 R2");
@@ -3050,9 +3050,12 @@ private:
                 BalLog(BOOTSTRAPPER_LOG_LEVEL_ERROR, "Detected Windows Server 2008");
                 BalLog(BOOTSTRAPPER_LOG_LEVEL_ERROR, "Service Pack 2 is required to continue installation");
                 LocGetString(_wixLoc, L"#(loc.FailureWS2K8MissingSP2)", &pLocString);
+            } else if (IsWindowsVersionOrGreater(5, 2, 2)) {
+                BalLog(BOOTSTRAPPER_LOG_LEVEL_STANDARD, "Target OS is Windows Server 2003 SP2 or later");
+                return;
             } else {
-                BalLog(BOOTSTRAPPER_LOG_LEVEL_ERROR, "Detected Windows Server 2003 or earlier");
-                BalLog(BOOTSTRAPPER_LOG_LEVEL_ERROR, "Windows Server 2008 SP2 or later is required to continue installation");
+                BalLog(BOOTSTRAPPER_LOG_LEVEL_ERROR, "Detected Windows Server 2003 earlier");
+                BalLog(BOOTSTRAPPER_LOG_LEVEL_ERROR, "Windows Server 2003 SP2 is required to continue installation");
                 LocGetString(_wixLoc, L"#(loc.FailureWS2K3OrEarlier)", &pLocString);
             }
         } else {
@@ -3070,9 +3073,12 @@ private:
                 BalLog(BOOTSTRAPPER_LOG_LEVEL_ERROR, "Detected Windows Vista RTM or SP1");
                 BalLog(BOOTSTRAPPER_LOG_LEVEL_ERROR, "Service Pack 2 is required to continue installation");
                 LocGetString(_wixLoc, L"#(loc.FailureVistaMissingSP2)", &pLocString);
-            } else { 
-                BalLog(BOOTSTRAPPER_LOG_LEVEL_ERROR, "Detected Windows XP or earlier");
-                BalLog(BOOTSTRAPPER_LOG_LEVEL_ERROR, "Windows Vista SP2 or later is required to continue installation");
+            } else if (IsWindowsXPSP3OrGreater()) {
+                BalLog(BOOTSTRAPPER_LOG_LEVEL_STANDARD, "Target OS is Windows XP SP3 or later");
+                return;
+            } else {
+                BalLog(BOOTSTRAPPER_LOG_LEVEL_ERROR, "Detected Windows XP earlier");
+                BalLog(BOOTSTRAPPER_LOG_LEVEL_ERROR, "Windows XP SP3 or later is required to continue installation");
                 LocGetString(_wixLoc, L"#(loc.FailureXPOrEarlier)", &pLocString);
             }
         }
@@ -3080,7 +3086,7 @@ private:
         if (pLocString && pLocString->wzText) {
             BalFormatString(pLocString->wzText, &_failedMessage);
         }
-        
+
         _hrFinal = E_WIXSTDBA_CONDITION_FAILED;
     }
 
