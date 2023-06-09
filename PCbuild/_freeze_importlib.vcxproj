@@ -39,12 +39,16 @@
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>_freeze_importlib</RootNamespace>
     <SupportPGO>false</SupportPGO>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="python.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <PlatformToolset>v141_xp</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -82,21 +86,18 @@
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
   <Target Name="RebuildImportLib" AfterTargets="AfterBuild" Condition="$(Configuration) == 'Debug' or $(Configuration) == 'Release'">
-    <Exec Command='"$(TargetPath)" "$(PySourcePath)Lib\importlib\_bootstrap.py" "$(IntDir)importlib.g.h"' />
-    
+    <Exec Command="&quot;$(TargetPath)&quot; &quot;$(PySourcePath)Lib\importlib\_bootstrap.py&quot; &quot;$(IntDir)importlib.g.h&quot;" />
     <PropertyGroup>
-      <_OldContent Condition="Exists('$(PySourcePath)Python\importlib.h')">$([System.IO.File]::ReadAllText('$(PySourcePath)Python\importlib.h').Replace(`&#x0D;&#x0A;`, `&#x0A;`))</_OldContent>
-      <_NewContent Condition="Exists('$(IntDir)importlib.g.h')">$([System.IO.File]::ReadAllText('$(IntDir)importlib.g.h').Replace(`&#x0D;&#x0A;`, `&#x0A;`))</_NewContent>
+      <_OldContent Condition="Exists('$(PySourcePath)Python\importlib.h')">$([System.IO.File]::ReadAllText('$(PySourcePath)Python\importlib.h').Replace(`
+`, `
+`))</_OldContent>
+      <_NewContent Condition="Exists('$(IntDir)importlib.g.h')">$([System.IO.File]::ReadAllText('$(IntDir)importlib.g.h').Replace(`
+`, `
+`))</_NewContent>
     </PropertyGroup>
-    
-    <Copy SourceFiles="$(IntDir)importlib.g.h"
-          DestinationFiles="$(PySourcePath)Python\importlib.h"
-          Condition="Exists('$(IntDir)importlib.g.h') and '$(_OldContent)' != '$(_NewContent)'" />
-    
-    <Warning Text="importlib.h has been updated. You will need to rebuild pythoncore to see the changes."
-             Condition="Exists('$(IntDir)importlib.g.h') and '$(_OldContent)' != '$(_NewContent)' and $(Configuration) == 'Debug'" />
-    <Error Text="importlib.h has been updated. You will need to rebuild pythoncore to see the changes."
-           Condition="Exists('$(IntDir)importlib.g.h') and '$(_OldContent)' != '$(_NewContent)' and $(Configuration) == 'Release'" />
+    <Copy SourceFiles="$(IntDir)importlib.g.h" DestinationFiles="$(PySourcePath)Python\importlib.h" Condition="Exists('$(IntDir)importlib.g.h') and '$(_OldContent)' != '$(_NewContent)'" />
+    <Warning Text="importlib.h has been updated. You will need to rebuild pythoncore to see the changes." Condition="Exists('$(IntDir)importlib.g.h') and '$(_OldContent)' != '$(_NewContent)' and $(Configuration) == 'Debug'" />
+    <Error Text="importlib.h has been updated. You will need to rebuild pythoncore to see the changes." Condition="Exists('$(IntDir)importlib.g.h') and '$(_OldContent)' != '$(_NewContent)' and $(Configuration) == 'Release'" />
   </Target>
   <Target Name="_CleanImportLib" BeforeTargets="CoreClean">
     <ItemGroup>

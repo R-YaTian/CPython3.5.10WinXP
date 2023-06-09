@@ -562,26 +562,61 @@ static int
 pymonotonic(_PyTime_t *tp, _Py_clock_info_t *info, int raise)
 {
 #if defined(MS_WINDOWS)
+    static OSVERSIONINFOEX winver;
+    static ULONGLONG(*GetTickCount64) (void) = NULL;
+    static ULONGLONG(CALLBACK * Py_GetTickCount64)(void);
+    static int has_getickcount64 = -1;
     ULONGLONG result;
 
-    assert(info == NULL || raise);
-
-    result = GetTickCount64();
-
-    *tp = result * MS_TO_NS;
-    if (*tp / MS_TO_NS != result) {
-        if (raise) {
-            _PyTime_overflow();
-            return -1;
+    if (has_getickcount64 == -1) {
+        /* GetTickCount64() was added to Windows Vista */
+        if (winver.dwMajorVersion >= 6) {
+            HINSTANCE hKernel32;
+            hKernel32 = GetModuleHandleW(L"KERNEL32");
+            *(FARPROC*)&Py_GetTickCount64 = GetProcAddress(hKernel32, "GetTickCount64");
+            has_getickcount64 = (Py_GetTickCount64 != NULL);
         }
-        /* Hello, time traveler! */
-        assert(0);
+        else
+            has_getickcount64 = 0;
+    }
+
+    if (has_getickcount64)
+    {
+        assert(info == NULL || raise);
+
+        result = GetTickCount64();
+
+        *tp = result * MS_TO_NS;
+        if (*tp / MS_TO_NS != result) {
+            if (raise) {
+                _PyTime_overflow();
+                return -1;
+            }
+            /* Hello, time traveler! */
+            assert(0);
+        }
+    } else {
+        static DWORD last_ticks = 0;
+        static DWORD n_overflow = 0;
+        DWORD ticks;
+
+        ticks = GetTickCount();
+        if (ticks < last_ticks)
+            n_overflow++;
+        last_ticks = ticks;
+
+        result = ldexp(n_overflow, 32);
+        result += ticks;
+        result *= 1e-3;
     }
 
     if (info) {
         DWORD timeAdjustment, timeIncrement;
         BOOL isTimeAdjustmentDisabled, ok;
-        info->implementation = "GetTickCount64()";
+        if (has_getickcount64)
+            info->implementation = "GetTickCount64()";
+        else
+            info->implementation = "GetTickCount()";
         info->monotonic = 1;
         ok = GetSystemTimeAdjustment(&timeAdjustment, &timeIncrement,
                                      &isTimeAdjustmentDisabled);

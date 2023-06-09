@@ -7137,8 +7137,15 @@ PyUnicode_DecodeMBCS(const char *s,
 static DWORD
 encode_code_page_flags(UINT code_page, const char *errors)
 {
+    static OSVERSIONINFOEX winver;
     if (code_page == CP_UTF8) {
-        return WC_ERR_INVALID_CHARS;
+        if (winver.dwMajorVersion >= 6)
+            /* CP_UTF8 supports WC_ERR_INVALID_CHARS on Windows Vista
+               and later */
+            return WC_ERR_INVALID_CHARS;
+        else
+            /* CP_UTF8 only supports flags=0 on Windows older than Vista */
+            return 0;
     }
     else if (code_page == CP_UTF7) {
         /* CP_UTF7 only supports flags=0 */
