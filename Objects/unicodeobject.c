@@ -45,6 +45,7 @@ OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 #ifdef MS_WINDOWS
 #include <windows.h>
+#include "VersionHelpers.h"
 #endif
 
 /*[clinic input]
@@ -7137,9 +7138,8 @@ PyUnicode_DecodeMBCS(const char *s,
 static DWORD
 encode_code_page_flags(UINT code_page, const char *errors)
 {
-    static OSVERSIONINFOEX winver;
     if (code_page == CP_UTF8) {
-        if (winver.dwMajorVersion >= 6)
+        if (IsWindowsVersionOrGreater(6, 0, 0))
             /* CP_UTF8 supports WC_ERR_INVALID_CHARS on Windows Vista
                and later */
             return WC_ERR_INVALID_CHARS;

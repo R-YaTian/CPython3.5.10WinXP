@@ -1,6 +1,7 @@
 #include "Python.h"
 #ifdef MS_WINDOWS
 #include <windows.h>
+#include "VersionHelpers.h"
 #endif
 
 #if defined(__APPLE__)
@@ -562,15 +563,15 @@ static int
 pymonotonic(_PyTime_t *tp, _Py_clock_info_t *info, int raise)
 {
 #if defined(MS_WINDOWS)
-    static OSVERSIONINFOEX winver;
     static ULONGLONG(*GetTickCount64) (void) = NULL;
     static ULONGLONG(CALLBACK * Py_GetTickCount64)(void);
     static int has_getickcount64 = -1;
     ULONGLONG result;
+    double result32;
 
     if (has_getickcount64 == -1) {
         /* GetTickCount64() was added to Windows Vista */
-        if (winver.dwMajorVersion >= 6) {
+        if (IsWindowsVersionOrGreater(6, 0, 0)) {
             HINSTANCE hKernel32;
             hKernel32 = GetModuleHandleW(L"KERNEL32");
             *(FARPROC*)&Py_GetTickCount64 = GetProcAddress(hKernel32, "GetTickCount64");
@@ -605,9 +606,9 @@ pymonotonic(_PyTime_t *tp, _Py_clock_info_t *info, int raise)
             n_overflow++;
         last_ticks = ticks;
 
-        result = ldexp(n_overflow, 32);
-        result += ticks;
-        result *= 1e-3;
+        result32 = ldexp(n_overflow, 32);
+        result32 += ticks;
+        *tp = (ULONGLONG)result32 * MS_TO_NS;
     }
 
     if (info) {

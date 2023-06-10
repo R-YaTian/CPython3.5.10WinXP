@@ -438,6 +438,9 @@
     <ClInclude Include="..\Include\odictobject.h">
       <Filter>Include</Filter>
     </ClInclude>
+    <ClInclude Include="..\PC\VersionHelpers.h">
+      <Filter>PC</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Modules\_bisectmodule.c">

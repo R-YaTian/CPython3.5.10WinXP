@@ -373,6 +373,7 @@ const char *inet_ntop(int af, const void *src, char *dst, socklen_t size);
 #endif
 
 #ifdef MS_WINDOWS
+#include "VersionHelpers.h"
 #define SOCKETCLOSE closesocket
 #endif
 
@@ -6118,11 +6119,8 @@ PyInit__socket(void)
 
 #ifdef MS_WINDOWS
     if (support_wsa_no_inherit == -1) {
-        static OSVERSIONINFOEX winver;
-        DWORD major = winver.dwMajorVersion;
-        DWORD minor = winver.dwMinorVersion;
         /* need Windows 7 SP1, 2008 R2 SP1 or later */
-        support_wsa_no_inherit = major > 6 || (major == 6 && minor >= 1);
+        support_wsa_no_inherit = IsWindowsVersionOrGreater(6, 0, 1);
     }
 #endif
 
