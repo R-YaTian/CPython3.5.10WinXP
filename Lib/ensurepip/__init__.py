@@ -8,9 +8,9 @@ import tempfile
 __all__ = ["version", "bootstrap"]
 
 
-_SETUPTOOLS_VERSION = "28.8.0"
+_SETUPTOOLS_VERSION = "50.3.2"
 
-_PIP_VERSION = "9.0.1"
+_PIP_VERSION = "20.3.4"
 
 # pip currently requires ssl support, so we try to provide a nicer
 # error message when that is missing (http://bugs.python.org/issue19744)
@@ -92,7 +92,10 @@ def bootstrap(*, root=None, upgrade=False, user=False,
         # additional paths that need added to sys.path
         additional_paths = []
         for project, version in _PROJECTS:
-            wheel_name = "{}-{}-py2.py3-none-any.whl".format(project, version)
+            if project == "setuptools":
+                wheel_name = "{}-{}-py3-none-any.whl".format(project, version)
+            else:
+                wheel_name = "{}-{}-py2.py3-none-any.whl".format(project, version)
             whl = pkgutil.get_data(
                 "ensurepip",
                 "_bundled/{}".format(wheel_name),
