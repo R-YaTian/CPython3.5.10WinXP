@@ -584,16 +584,13 @@ pymonotonic(_PyTime_t *tp, _Py_clock_info_t *info, int raise)
     if (has_getickcount64)
     {
         assert(info == NULL || raise);
-
-        result = GetTickCount64();
-
+        result = Py_GetTickCount64();
         *tp = result * MS_TO_NS;
         if (*tp / MS_TO_NS != result) {
             if (raise) {
                 _PyTime_overflow();
                 return -1;
             }
-            /* Hello, time traveler! */
             assert(0);
         }
     } else {
