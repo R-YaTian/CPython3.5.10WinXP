@@ -116,7 +116,7 @@
         <Text X="185" Y="11" Width="-11" Height="36" FontId="1" DisablePrefix="yes">#(loc.SuccessHeader)</Text>
         <Image X="0" Y="0" Width="178" Height="382" ImageFile="SideBar.png"/>
 
-        <Hypertext Name="SuccessText" X="205" Y="71" Width="-31" Height="120" FontId="3" DisablePrefix="yes"></Hypertext>
+        <Hypertext Name="SuccessText" X="205" Y="71" Width="-31" Height="150" FontId="3" DisablePrefix="yes"></Hypertext>
 
         <Text Name="SuccessRestartText" X="205" Y="-100" Width="-11" Height="34" FontId="3" HideWhenDisabled="yes" DisablePrefix="yes">#(loc.SuccessRestartText)</Text>
         <Button Name="LaunchButton" X="185" Y="-50" Width="-11" Height="59" TabStop="yes" FontId="3" HideWhenDisabled="yes">#(loc.SuccessLaunchButton)</Button>
