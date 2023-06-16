@@ -566,6 +566,9 @@ pymonotonic(_PyTime_t *tp, _Py_clock_info_t *info, int raise)
     static ULONGLONG(*GetTickCount64) (void) = NULL;
     static ULONGLONG(CALLBACK * Py_GetTickCount64)(void);
     static int has_getickcount64 = -1;
+    static DWORD last_ticks = 0;
+    static DWORD n_overflow = 0;
+    DWORD ticks;
     ULONGLONG result;
     double result32;
 
@@ -594,10 +597,6 @@ pymonotonic(_PyTime_t *tp, _Py_clock_info_t *info, int raise)
             assert(0);
         }
     } else {
-        static DWORD last_ticks = 0;
-        static DWORD n_overflow = 0;
-        DWORD ticks;
-
         ticks = GetTickCount();
         if (ticks < last_ticks)
             n_overflow++;

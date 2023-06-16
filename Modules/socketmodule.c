@@ -6120,7 +6120,7 @@ PyInit__socket(void)
 #ifdef MS_WINDOWS
     if (support_wsa_no_inherit == -1) {
         /* need Windows 7 SP1, 2008 R2 SP1 or later */
-        support_wsa_no_inherit = IsWindowsVersionOrGreater(6, 0, 1);
+        support_wsa_no_inherit = IsWindows7SP1OrGreater();
     }
 #endif
 

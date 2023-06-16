@@ -35,7 +35,7 @@
 
 #define _WIN32_WINNT_WIN8                   0x0602
 #define _WIN32_WINNT_WINBLUE                0x0603
-#define _WIN32_WINNT_WIN10                   0x0A00
+#define _WIN32_WINNT_WIN10                  0x0A00
 
 VERSIONHELPERAPI
 IsWindowsVersionOrGreater(WORD wMajorVersion, WORD wMinorVersion, WORD wServicePackMajor)
