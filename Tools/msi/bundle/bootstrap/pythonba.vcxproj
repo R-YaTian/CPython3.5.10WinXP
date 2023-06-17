@@ -39,7 +39,7 @@
   <ItemDefinitionGroup>
     <ClCompile>
       <PreprocessorDefinitions>_CRT_STDIO_LEGACY_WIDE_SPECIFIERS=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(WixInstallPath)sdk\inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(WixInstallPath)sdk\inc;$(PySourcePath)PC</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -62,9 +62,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\PC\VersionHelpers.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="VersionHelpers.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="pythonba.def" />
