@@ -308,10 +308,6 @@ node_modules/
 *.dsw
 *.dsp
 
-# Visual Studio 6 technical files
-*.ncb
-*.aps
-
 # Visual Studio LightSwitch build output
 **/*.HTMLClient/GeneratedArtifacts
 **/*.DesktopClient/GeneratedArtifacts
@@ -406,3 +402,17 @@ FodyWeavers.xsd
 
 # Custom Files
 python.bat
+
+# Do not ignore the following
+!/Modules/_ctypes/libffi/src/arm
+!/Modules/_ctypes/libffi/src/x86
+!/Modules/_ctypes/libffi_osx/x86
+!/externals/openssl-1.0.2k/crypto/bn/asm/x86
+!/externals/tcl-core-8.6.4.2/compat/zlib/win32
+!/externals/windows-installer/redist/x64
+!/externals/windows-installer/redist/x86
+!/externals/windows-installer/wix/sdk/vs*/lib/x64
+!/externals/windows-installer/wix/sdk/vs*/lib/x86
+!/externals/windows-installer/wix/sdk/x64
+!/externals/windows-installer/wix/sdk/x86
+!/externals/windows-installer/wix/x86
