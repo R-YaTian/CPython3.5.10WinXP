@@ -2,13 +2,15 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
     <Fragment>
         <PackageGroup Id="crt">
+        <!--
             <PackageGroupRef Id="crt_14.0_v6.0" />
             <PackageGroupRef Id="crt_14.0_v6.1" />
             <PackageGroupRef Id="crt_14.0_v6.2" />
             <PackageGroupRef Id="crt_14.0_v6.3" />
+        -->
         </PackageGroup>
     </Fragment>
-
+<!--
     <?foreach ver in v6.0;v6.1;v6.2;v6.3 ?>
     <?if "$(var.ver)" = "v6.0" ?>
     <?define msuver=6.0 ?>
@@ -46,4 +48,5 @@
 
     <?undef msuver ?>
     <?endforeach ?>
+-->
 </Wix>
