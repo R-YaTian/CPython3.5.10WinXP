@@ -61,7 +61,10 @@
 goto :eof
 :build
 set VCINSTALLDIR=$(VCInstallDir)
-call "$(VCInstallDir)Auxiliary\Build\vcvarsall.bat" x86 10.0.10240.0 -vcvars_ver=14.16
+call "$(VCInstallDir)Auxiliary\Build\vcvarsall.bat" x86 -vcvars_ver=14.16
+set INCLUDE=%ProgramFiles(x86)%\Microsoft SDKs\Windows\v7.1A\Include;%INCLUDE%
+set PATH=%ProgramFiles(x86)%\Microsoft SDKs\Windows\v7.1A\Bin;%PATH%
+set LIB=%ProgramFiles(x86)%\Microsoft SDKs\Windows\v7.1A\Lib;%LIB%
 cd /D "$(tkDir)win"
 nmake /nologo -f makefile.vc RC=rc MACHINE=$(TclMachine) OPTS=$(TkOpts) $(TkDirs) $(DebugFlags) all
 nmake /nologo -f makefile.vc RC=rc MACHINE=$(TclMachine) OPTS=$(TkOpts) $(TkDirs) $(DebugFlags) install-binaries install-libraries

@@ -1,7 +1,7 @@
 Install Sphinx 1.8.5:
 pip install MarkupSafe==1.1.1
-pip install Jinja2==2.10.1
+pip install Jinja2==2.10.2
 pip install Sphinx==1.8.5
-Should install VS2022's v141 and v141_xp toolset, VS15 BuildTools, 10.0.10240.0 SDK and v141 ATL
+Should install VS2022's v141, v141_xp toolset and v141 ATL
 Should install mingw:gendef also
 Then run: buildrelease.bat -o out -x86 --skip-nuget
