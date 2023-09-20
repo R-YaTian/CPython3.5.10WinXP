@@ -41,7 +41,7 @@
             <_DllToolOpts Condition="$(Platform) == 'x64'">-m i386:x86-64</_DllToolOpts>
         </PropertyGroup>
 
-        <Exec Command='gendef - "$(BuildPath)$(PyDllName).dll" &gt; "$(IntermediateOutputPath)mingwlib.def"' ContinueOnError="false" />
+        <Exec Command='gendef -r - "$(BuildPath)$(PyDllName).dll" &gt; "$(IntermediateOutputPath)mingwlib.def"' ContinueOnError="false" />
         <Exec Command='dlltool --dllname $(PyDllName).dll --def "$(IntermediateOutputPath)mingwlib.def" --output-lib "$(BuildPath)lib$(PyDllName).a" $(_DllToolOpts)' />
     </Target>
 

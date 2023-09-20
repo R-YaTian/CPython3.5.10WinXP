@@ -3,5 +3,7 @@ pip install MarkupSafe==1.1.1
 pip install Jinja2==2.10.2
 pip install Sphinx==1.8.5
 Should install VS2022's v141, v141_xp toolset and v141 ATL
-Should install mingw:gendef also
+May need to install mingw:gendef also:
+pacman -S mingw-w64-i686-tools-git
+(Or you can also install Strawberry Perl which include gendef tool)
 Then run: buildrelease.bat -o out -x86 --skip-nuget
